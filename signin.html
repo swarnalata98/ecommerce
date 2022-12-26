@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="CSS/style.css">
+    <script>
+        var form = document.querySelector(".loginform");
+    
+        var arr = JSON.parse(localStorage.getItem("user")) || [];
+    
+        var logedUser = JSON.parse(localStorage.getItem("loginUser")) || [];
+    
+    
+        class Logindata {
+            constructor(e, p) {
+                
+                this.email = e;
+                this.password = p;
+            }
+        }
+    
+        let logindata = () => {
+            event.preventDefault();
+            var useremail = form.email.value;
+            var userpassword = form.password.value;
+            var obj = new Logindata(useremail,userpassword);
+            var flag;
+            for (var i = 0; i < arr.length; i++) {
+                if (arr[i].email == useremail && arr[i].password == userpassword) {
+                    flag = true;
+                    logedUser.push(arr[i]);
+                    localStorage.setItem("loginUser", JSON.stringify(logedUser));
+                }
+            }
+            if (flag == true) {
+                alert("Login Success")
+                window.location.href = "index.html"
+            }
+            else {
+                alert("Invalid email/password")
+            }
+    
+            let full = document.querySelectorAll("input")
+            {
+                full.forEach(function (element) {
+                    element.value = null;
+                })
+            }
+        }
+        document.querySelector("#signin").addEventListener("click", logindata)
+    
+        let redirect = () => {
+            window.location.href = "signup.html"
+        }
+    
+        document.querySelector("#signup").addEventListener("click", redirect)  
+    </script>
+
+</head>
+
+<body>
+    <section>
+        <div class="imgBx">
+            <img src="CSS/flipkart.png" alt="">
+        </div>
+        <div class="contentBx">
+            <div class="formBx">
+                <h2>Login</h2>
+                <form action="index.html" class="loginform">
+                    <div class="inputBx">
+                        <span>Useremail</span>
+                        <input type="email" name="" id="email">
+                    </div>
+                    <div class="inputBx">
+                        <span>Password</span>
+                        <input type="password" name="" id="password">
+                    </div>
+                    <div class="inputBx">
+                        <input type="submit" value="Login" name="" id="signin">
+                    </div>
+                    <div class="inputBx">
+                        <p>Don't have an account? <a href="signup.html">Sign up</a></p>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

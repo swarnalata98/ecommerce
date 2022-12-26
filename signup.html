@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
+    <link rel="stylesheet" href="CSS/style.css">
+<script>
+        
+var form = document.querySelector(".signupform");
+
+var arr = JSON.parse(localStorage.getItem("user")) || [];
+
+
+
+class Signupdata {
+    constructor(f, l, e, p) {
+        this.fname = f;
+        this.lname = l;
+        this.email = e;
+        this.password = p;
+    }
+}
+
+let getdata = () => {
+    event.preventDefault();
+    var fname = form.fname.value;
+    var lname = form.lname.value;
+    var email = form.email.value;
+    var password = form.password.value;
+
+    var obj = new Signupdata(fname, lname, email, password)
+    console.log(obj)
+    if (obj.fname == "" || obj.lname == "null" || obj.email == "" || obj.password == "") {
+        alert("Fill complete details")
+    }
+    else {
+        arr.push(obj);
+        console.log(arr);
+        localStorage.setItem("user", JSON.stringify(arr));
+        let full = document.querySelectorAll("input")
+        {
+            full.forEach(function (element) {
+                element.value = null;
+            })
+        }
+        alert("signup successful")
+        window.location.href = "signin.html"
+    }
+
+}
+document.querySelector("#signup").addEventListener("click", getdata)
+
+
+let redirect = () => {
+    window.location.href = "signin.html"
+}
+
+document.querySelector("#signin").addEventListener("click", redirect);
+</script>
+</head>
+
+<body>
+    <section>
+        <div class="imgBx">
+            <img src="CSS/flipkart.png" alt="">
+        </div>
+        <div class="contentBx">
+            <div class="formBx">
+                <h2>Signup</h2>
+                <form action="index.html" class="signupform">
+                    <div class="inputBx">
+                        <span>Firstname</span>
+                        <input type="text" name="" id="fname">
+                    </div>
+                    <div class="inputBx">
+                        <span>Lastname</span>
+                        <input type="text" name="" id="lname">
+                    </div>
+                    <div class="inputBx">
+                        <span>Email</span>
+                        <input type="email" name="" id="email">
+                    </div>
+                    <div class="inputBx">
+                        <span>Password</span>
+                        <input type="password" name="" id="password">
+                    </div>
+
+                    <div class="inputBx">
+                        <input type="submit" value="Register" name="" id="signup">
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>
